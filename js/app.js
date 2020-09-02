@@ -62,7 +62,11 @@ class AmpPage {
   };
 
   loadDocument(url) {
-    // TODO: Add code to load a document and attach to Shadow Root
+    return this._fetchDocument(url).then(document => {
+      const header = document.querySelector('.header');
+      header.remove();
+      window.AMP.attachShadowDoc(this.rootElement, document, url);
+    });
   }
 }
 
@@ -70,6 +74,13 @@ const ampReadyPromise = new Promise(resolve => {
   (window.AMP = window.AMP || []).push(resolve);
 });
 const router = new Router();
+
+const ampRoot = document.querySelector('#amproot');
+const url = document.location.href;
+const amppage = new AmpPage(ampRoot, router);
+ampReadyPromise.then(() => {
+  return amppage.loadDocument(url);
+});
 
 // TODO: get a reference to the container and URL, and load the AMP page
 // when ampReadyPromise resolves.
