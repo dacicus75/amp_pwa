@@ -11,6 +11,8 @@ body{margin:0;padding:0;background:#F5F5F5;font-size:12px;font-weight:300;font-f
     <script async custom-element="amp-install-serviceworker"
       src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js">
     </script>
+    <!-- Asynchronously load the AMP-Shadow-DOM runtime library. -->
+<script async src="https://cdn.ampproject.org/shadow-v0.js"></script>  
   </head>
   <body>
     <header class="header">
@@ -21,5 +23,6 @@ body{margin:0;padding:0;background:#F5F5F5;font-size:12px;font-weight:300;font-f
       <!-- AMP Content should appear here! -->
     </div>
     <h2>This is the app shell!</h2>
+    <script src="/js/app.js" type="text/javascript" defer></script>
   </body>
 </html>

@@ -15,12 +15,10 @@ self.addEventListener('install', event => {
 });
 
 workbox.routing.registerRoute(/(index|\/articles\/)(.*)html|(.*)\/$/, args => {
-  return workbox.strategies.networkFirst().handle(args).then(response => {
-    if (!response) {
-      return caches.match('offline.html');
-    }
-    return response;
-  });
+  if (args.event.request.mode !== 'navigate') {
+    return workbox.strategies.cacheFirst().handle(args);
+  }
+  return caches.match('/shell.html', {ignoreSearch: true});
 });
 
 workbox.routing.registerRoute(/\.(?:js|css|png|gif|jpg|svg)$/,
